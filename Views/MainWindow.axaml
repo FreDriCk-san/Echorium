@@ -3,6 +3,7 @@
         xmlns:vm="using:Echorium.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Echorium.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Echorium.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -12,6 +13,11 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+  <Grid>
+    <!--Main UserControl which contains all main functions [see SearchView.axaml]-->
+    <views:SearchView DataContext="{Binding SearchViewVM}"/>
+
+    <!--Here you can add some custom elements-->
+  </Grid>
 
 </Window>

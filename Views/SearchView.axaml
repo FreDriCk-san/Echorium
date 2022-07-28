@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Echorium.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Echorium.Views.SearchView">
+
+  <UserControl.Styles>
+    
+    <Style Selector="Label.LInfo">
+      <Setter Property="HorizontalContentAlignment" Value="Left"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="TextBlock.TbFilePath">
+      <Setter Property="HorizontalAlignment" Value="Left"/>
+      <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+  </UserControl.Styles>
+
+  <Design.DataContext>
+    <vm:SearchViewVM/>
+  </Design.DataContext>
+  
+  
+  <Grid Margin="20,20,20,20">
+    
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="0.5*"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    
+    <Label Classes="LInfo" Grid.Row="0" Grid.Column="0" Content="Directory path:" Background="Aqua"/>
+    <TextBlock Classes="TbFilePath" Grid.Row="0" Grid.Column="1" Text="{Binding SearchDirectory}" Background="Bisque"/>
+    <Button Grid.Row="0" Grid.Column="2" Content="+" Command="{Binding CallFolderDialogAsync}"/>
+    
+    <Label Classes="LInfo" Grid.Row="1" Grid.Column="0" Content="Text to search:" Background="BlanchedAlmond"/>
+    <TextBox Grid.Row="1" Grid.Column="1" Background="Red"/>
+    
+  </Grid>
+  
+</UserControl>

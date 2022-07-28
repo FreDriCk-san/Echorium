@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Echorium.Utils;
 
 namespace Echorium.Views
 {
@@ -7,6 +8,7 @@ namespace Echorium.Views
         public MainWindow()
         {
             InitializeComponent();
+            WindowsManager.MainWindowRef = this;
         }
     }
 }

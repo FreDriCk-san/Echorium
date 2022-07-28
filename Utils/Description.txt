@@ -1,0 +1,13 @@
+﻿Common description about "Echorium" project
+
+The main task for this program is to find all suitable files that contains the entered characters.
+Finally after some search show these files in main window view.
+The search process is simple, only by containing entered characters. [Mb we should use regular expressions?]
+For input there will be a TextBox.
+It's supposed to show some groups [which contains full path to the folder] where are shown suitable file names
+
+28.07.2022
+
+
+
+// TODO: For better experience install the VS extension https: //marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaVS

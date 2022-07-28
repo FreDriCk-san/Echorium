@@ -2,6 +2,15 @@
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public string Greeting => "Welcome to Avalonia!";
+        /// <summary>
+        /// View-Model of "Search" user control
+        /// </summary>
+        public SearchViewVM SearchViewVM { get; set; }
+
+
+        public MainWindowViewModel()
+        {
+            SearchViewVM = new SearchViewVM();
+        }
     }
 }
