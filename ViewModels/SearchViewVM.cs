@@ -2,18 +2,17 @@
 using Echorium.Models;
 using Echorium.Utils;
 using ReactiveUI;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace Echorium.ViewModels
 {
     public class SearchViewVM : ViewModelBase
     {
-        #region Private props
         private SearchViewM _searchViewM;
-        #endregion Private props
 
 
-        #region Public props
+
         /// <summary>
         /// Full path to directory search
         /// </summary>
@@ -23,13 +22,22 @@ namespace Echorium.ViewModels
             set => this.RaiseAndSetIfChanged(ref _searchDirectory, value);
         }
         private string _searchDirectory;
-        #endregion Public props
+
+
+        /// <summary>
+        /// Collection of matching directories
+        /// </summary>
+        public ObservableCollection<FolderInfoM> FolderInfos { get; }
+
 
 
         public SearchViewVM()
         {
             _searchViewM = new SearchViewM();
+            FolderInfos = new ObservableCollection<FolderInfoM>();
+            MakeDummyInfo();
         }
+
 
 
         /// <summary>
@@ -46,6 +54,12 @@ namespace Echorium.ViewModels
 
             if (!string.IsNullOrEmpty(result))
                 SearchDirectory = result;
+        }
+
+
+        private void MakeDummyInfo()
+        {
+            // TODO: Generate dummy models 4 view
         }
     }
 }
