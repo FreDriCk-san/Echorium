@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Echorium.Models
+namespace Echorium.Models.TableItemM
 {
     /// <summary>
     /// Lower information level (3) which contains info about matched word

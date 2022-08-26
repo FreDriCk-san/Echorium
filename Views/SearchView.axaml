@@ -39,12 +39,43 @@
       <RowDefinition/>
     </Grid.RowDefinitions>
     
-    <Label Classes="LInfo" Grid.Row="0" Grid.Column="0" Content="Directory path:" Background="Aqua"/>
-    <TextBlock Classes="TbFilePath" Grid.Row="0" Grid.Column="1" Text="{Binding SearchDirectory}" Background="Bisque"/>
+    
+    <Label Classes="LInfo" Grid.Row="0" Grid.Column="0" Content="Directory path:"/>
+    <TextBlock Classes="TbFilePath" Grid.Row="0" Grid.Column="1" Text="{Binding SearchDirectory}"/>
     <Button Grid.Row="0" Grid.Column="2" Content="+" Command="{Binding CallFolderDialogAsync}"/>
     
-    <Label Classes="LInfo" Grid.Row="1" Grid.Column="0" Content="Text to search:" Background="BlanchedAlmond"/>
-    <TextBox Grid.Row="1" Grid.Column="1" Background="Red"/>
+    
+    <Label Classes="LInfo" Grid.Row="1" Grid.Column="0" Content="Text to search:"/>
+    <TextBox Grid.Row="1" Grid.Column="1"/>
+
+    
+    <TreeView Grid.Row="2" Grid.ColumnSpan="2" Items="{Binding FolderInfos}">
+      
+      <TreeView.Styles>
+        <Style Selector="TreeViewItem">
+          <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+          <Setter Property="IsVisible" Value="{Binding IsVisible, Mode=TwoWay}"/>
+          <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+        </Style>
+      </TreeView.Styles>
+
+
+      <TreeView.DataTemplates>
+        <TreeDataTemplate DataType="vm:TableItemVM.FolderInfoVM" ItemsSource="{Binding Children}">
+          <TextBlock Text="{Binding FolderName}"/>
+        </TreeDataTemplate>
+
+        <TreeDataTemplate DataType="vm:TableItemVM.FileInfoVM" ItemsSource="{Binding Children}">
+          <TextBlock Text="{Binding FileName}"/>
+        </TreeDataTemplate>
+
+        <DataTemplate DataType="vm:TableItemVM.WordInfoVM">
+          <TextBlock Text="{Binding WordText}"/>
+        </DataTemplate>
+      </TreeView.DataTemplates>
+      
+      
+    </TreeView>
     
   </Grid>
   

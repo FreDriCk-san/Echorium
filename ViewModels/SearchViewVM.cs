@@ -1,7 +1,10 @@
 ﻿using Avalonia.Controls;
 using Echorium.Models;
+using Echorium.Models.TableItemM;
 using Echorium.Utils;
+using Echorium.ViewModels.TableItemVM;
 using ReactiveUI;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -9,7 +12,7 @@ namespace Echorium.ViewModels
 {
     public class SearchViewVM : ViewModelBase
     {
-        private SearchViewM _searchViewM;
+        private SearchViewM _searchViewM { get; }
 
 
 
@@ -27,14 +30,14 @@ namespace Echorium.ViewModels
         /// <summary>
         /// Collection of matching directories
         /// </summary>
-        public ObservableCollection<FolderInfoM> FolderInfos { get; }
+        public ObservableCollection<FolderInfoVM> FolderInfos { get; }
 
 
 
         public SearchViewVM()
         {
             _searchViewM = new SearchViewM();
-            FolderInfos = new ObservableCollection<FolderInfoM>();
+            FolderInfos = new ObservableCollection<FolderInfoVM>();
             MakeDummyInfo();
         }
 
@@ -57,9 +60,34 @@ namespace Echorium.ViewModels
         }
 
 
+        /// <summary>
+        /// Create dummy info for testing
+        /// </summary>
         private void MakeDummyInfo()
         {
-            // TODO: Generate dummy models 4 view
+            for (int i = 0; i < 4; ++i)
+            {
+                FolderInfoM folderInfoM = new(new System.IO.DirectoryInfo(@"D:\Sources\WS-9195"));
+                FolderInfoVM folderInfoVM = new(folderInfoM);
+
+                for (int j = 0; j < 5; ++j)
+                {
+                    FileInfoM fileInfoM = new(folderInfoM.DirectoryDescription.GetFiles()[0]);
+                    FileInfoVM fileInfoVM = new(folderInfoVM, fileInfoM);
+
+                    for (int k = 0; k < 6; ++k)
+                    {
+                        WordInfoM wordInfoM = new(Guid.NewGuid().ToString(), Convert.ToUInt32(k));
+                        WordInfoVM wordInfoVM = new(fileInfoVM, wordInfoM);
+
+                        fileInfoVM.TryAddChild(wordInfoVM);
+                    }
+
+                    folderInfoVM.TryAddChild(fileInfoVM);
+                }
+
+                FolderInfos.Add(folderInfoVM);
+            }
         }
     }
 }
