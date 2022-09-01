@@ -136,11 +136,11 @@ namespace Echorium.ViewModels
                 FileInfo? file = allFiles[i];
                 Progress = $"{Math.Round((i / (double)allFiles.Count) * 100, 2)} %";
 
-                if (FileHelper.FileIsBinary(file.FullName))
+                if (await FileHelper.FileIsBinaryAsync(file.FullName))
                     continue;
 
                 // TODO: Not sure about manual encoding
-                var encoding = FileHelper.GetEncoding(file.FullName);
+                var encoding = await FileHelper.GetEncodingAsync(file.FullName);
 
                 using var fileStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true);
                 var counter = 0;

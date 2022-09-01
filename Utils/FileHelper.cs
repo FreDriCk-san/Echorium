@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Echorium.Utils
 {
@@ -40,14 +41,14 @@ namespace Echorium.Utils
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static bool FileIsBinary(string path)
+        public static async Task<bool> FileIsBinaryAsync(string path)
         {
-            byte[] buff = new byte[1024];
+            byte[] buff = new byte[256];
             int size;
             try
             {
-                FileStream reader = new (path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                size = reader.Read(buff, 0, buff.Length);
+                FileStream reader = new (path, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 256, useAsync: true);
+                size = await reader.ReadAsync(buff);
                 reader.Close();
             }
             catch
@@ -76,13 +77,13 @@ namespace Echorium.Utils
         /// </summary>
         /// <param name="filename">The text file to analyze.</param>
         /// <returns>The detected encoding.</returns>
-        public static Encoding GetEncoding(string filename)
+        public static async Task<Encoding> GetEncodingAsync(string filename)
         {
             // Read the BOM
             var bom = new byte[4];
-            using (var file = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            using (var file = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize:4, useAsync:true))
             {
-                file.Read(bom, 0, 4);
+                await file.ReadAsync(bom, 0, 4);
             }
 
             // Analyze the BOM
