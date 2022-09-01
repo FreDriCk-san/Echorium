@@ -10,7 +10,7 @@ namespace Echorium.ViewModels.TableItemVM
         public string FolderName 
             => _folderInfoModel?.DirectoryDescription?.FullName ?? "Not initialized";
 
-
+        
 
         public FolderInfoVM(FolderInfoM aFolderInfoModel) : base(null)
         {

@@ -8,7 +8,7 @@ namespace Echorium.ViewModels.TableItemVM
 
 
         public string WordText 
-            => _wordInfoModel?.WordMatch ?? "Not initialized";
+            => GetWordText() ?? "Not initialized";
 
         public string WordLine 
             => _wordInfoModel?.WordLine.ToString() ?? "Not initialized";
@@ -18,6 +18,18 @@ namespace Echorium.ViewModels.TableItemVM
         public WordInfoVM(FileInfoVM aFileInfoVM, WordInfoM aWordInfoModel) : base(aFileInfoVM)
         {
             _wordInfoModel = aWordInfoModel;
+        }
+
+
+        private string? GetWordText()
+        {
+            // TODO: Somehow resolve treeview stuck on big data
+            if (_wordInfoModel?.WordMatch is null)
+                return null;
+
+            return _wordInfoModel.WordMatch.Length > 20 
+                ? $"{_wordInfoModel.WordMatch.Substring(0, 19)} [TOO LONG TEXT!!!!]" 
+                : _wordInfoModel.WordMatch;
         }
     }
 }

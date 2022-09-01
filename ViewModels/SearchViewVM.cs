@@ -45,6 +45,17 @@ namespace Echorium.ViewModels
         private string _textToSearch;
 
 
+        /// <summary>
+        /// Loading progress
+        /// </summary>
+        public string Progress
+        {
+            get => _progress;
+            set => this.RaiseAndSetIfChanged(ref _progress, value);
+        }
+        private string _progress;
+
+
 
         /// <summary>
         /// Collection of matching directories
@@ -71,6 +82,7 @@ namespace Echorium.ViewModels
             {
                 case nameof(TextToSearch):
                     await TrySearchForMatchesAsync();
+                    Progress = "";
                     break;
             }
         }
@@ -119,8 +131,11 @@ namespace Echorium.ViewModels
             if (allFiles.IsNullOrEmpty())
                 return result;
 
-            foreach (var file in allFiles)
+            for (int i = 0; i < allFiles.Count; i++)
             {
+                FileInfo? file = allFiles[i];
+                Progress = $"{Math.Round((i / (double)allFiles.Count) * 100, 2)} %";
+
                 if (FileHelper.FileIsBinary(file.FullName))
                     continue;
 

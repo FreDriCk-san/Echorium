@@ -18,6 +18,18 @@
       <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
+    <Style Selector="TextBlock.TreeBlock1">
+      <Setter Property="FontSize" Value="15"/>
+    </Style>
+
+    <Style Selector="TextBlock.TreeBlock2">
+      <Setter Property="FontSize" Value="15"/>
+    </Style>
+
+    <Style Selector="TextBlock.TreeBlock3">
+      <Setter Property="FontSize" Value="15"/>
+    </Style>
+
   </UserControl.Styles>
 
   <Design.DataContext>
@@ -36,6 +48,7 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
     
@@ -48,8 +61,11 @@
     <Label Classes="LInfo" Grid.Row="1" Grid.Column="0" Content="Text to search:"/>
     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextToSearch}"/>
 
+    <TextBlock Margin="10" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Progress:"/>
+    <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Progress}"/>
+
     
-    <TreeView Grid.Row="2" Grid.ColumnSpan="2" Items="{Binding FolderInfos}">
+    <TreeView Grid.Row="3" Grid.ColumnSpan="2" Items="{Binding FolderInfos}">
       
       <TreeView.Styles>
         <Style Selector="TreeViewItem">
@@ -62,19 +78,25 @@
 
       <TreeView.DataTemplates>
         <TreeDataTemplate DataType="vm:TableItemVM.FolderInfoVM" ItemsSource="{Binding Children}">
-          <TextBlock Text="{Binding FolderName}"/>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="TreeBlock1" Text="{Binding FolderName}"/>
+            <TextBlock Classes="TreeBlock1" FontStyle="Italic" FontWeight="SemiBold" Text="{Binding Children.Count, StringFormat={}  ({0})}"/>
+          </StackPanel>
         </TreeDataTemplate>
 
         <TreeDataTemplate DataType="vm:TableItemVM.FileInfoVM" ItemsSource="{Binding Children}">
-          <TextBlock Text="{Binding FileName}"/>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Classes="TreeBlock2" Text="{Binding FileName}"/>
+            <TextBlock Classes="TreeBlock2" FontStyle="Italic" FontWeight="SemiBold" Text="{Binding Children.Count, StringFormat={}  ({0})}"/>
+          </StackPanel>
         </TreeDataTemplate>
 
         <DataTemplate DataType="vm:TableItemVM.WordInfoVM">
           <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Content:" FontWeight="Bold"/>
-            <TextBlock Text="{Binding WordText}"/>
-            <TextBlock Margin="10,0,0,0" Text="Line:" FontWeight="Bold"/>
-            <TextBlock Text="{Binding WordLine}"/>
+            <TextBlock Classes="TreeBlock3" Text="Content:" FontWeight="Bold"/>
+            <TextBlock Classes="TreeBlock3" Text="{Binding WordText}"/>
+            <TextBlock Classes="TreeBlock3" Margin="10,0,0,0" Text="Line:" FontWeight="Bold"/>
+            <TextBlock Classes="TreeBlock3" Text="{Binding WordLine}"/>
           </StackPanel>
         </DataTemplate>
       </TreeView.DataTemplates>
