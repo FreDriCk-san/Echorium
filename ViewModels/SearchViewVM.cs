@@ -19,7 +19,7 @@ namespace Echorium.ViewModels
     public class SearchViewVM : ViewModelBase
     {
         private SearchViewM _searchViewM { get; }
-        private int _debounceSearchTime = 100;
+        private int _debounceSearchTime = 800;
         private CancellationStorage _searchCancellationStorage;
 
 
