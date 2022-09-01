@@ -20,11 +20,11 @@ namespace Echorium.Models.TableItemM
         /// <summary>
         /// Line number of the matching word
         /// </summary>
-        public uint WordLine { get; }
+        public int WordLine { get; }
 
 
 
-        public WordInfoM(string aWordMatch, uint aWordLine)
+        public WordInfoM(string aWordMatch, int aWordLine)
         {
             WordMatch = aWordMatch;
             WordLine = aWordLine;
