@@ -48,12 +48,12 @@ namespace Echorium.ViewModels
         /// <summary>
         /// Loading progress
         /// </summary>
-        public string Progress
+        public double Progress
         {
             get => _progress;
             set => this.RaiseAndSetIfChanged(ref _progress, value);
         }
-        private string _progress;
+        private double _progress;
 
 
 
@@ -82,7 +82,7 @@ namespace Echorium.ViewModels
             {
                 case nameof(TextToSearch):
                     await TrySearchForMatchesAsync();
-                    Progress = "";
+                    Progress = 0;
                     break;
             }
         }
@@ -127,16 +127,20 @@ namespace Echorium.ViewModels
             if (!directoryInfo.Exists)
                 return result;
 
-            var allFiles = FileHelper.GetAllFilesFromDirectory(directoryInfo);
+            var allFiles = await Task.Run(() =>
+            {
+                return FileHelper.GetAllFilesFromDirectory(directoryInfo);
+            });
+
             if (allFiles.IsNullOrEmpty())
                 return result;
 
             for (int i = 0; i < allFiles.Count; i++)
             {
                 FileInfo? file = allFiles[i];
-                Progress = $"{Math.Round((i / (double)allFiles.Count) * 100, 2)} %";
+                Progress = (i / (double)allFiles.Count) * 100;
 
-                if (await FileHelper.FileIsBinaryAsync(file.FullName))
+                if (await FileHelper.FileIsBinary(file.FullName))
                     continue;
 
                 // TODO: Not sure about manual encoding
@@ -146,17 +150,20 @@ namespace Echorium.ViewModels
                 var counter = 0;
                 List<WordInfoM> wordInfos = new();
 
-                using var reader = new StreamReader(fileStream, encoding);
-                while (!reader.EndOfStream)
+                await Task.Run(() =>
                 {
-                    if (cancellationToken.IsCancellationRequested)
-                        break;
+                    using var reader = new StreamReader(fileStream, encoding);
+                    while (!reader.EndOfStream)
+                    {
+                        if (cancellationToken.IsCancellationRequested)
+                            break;
 
-                    ++counter;
-                    var line = await reader.ReadLineAsync();
-                    if (regex.Match(line).Success)
-                        wordInfos.Add(new WordInfoM(line, counter));
-                }
+                        ++counter;
+                        var line = reader.ReadLine();
+                        if (regex.Match(line).Success)
+                            wordInfos.Add(new WordInfoM(line, counter));
+                    }
+                }, cancellationToken);
 
                 var firstWordInfo = wordInfos.FirstOrDefault();
                 if (firstWordInfo is null)

@@ -27,8 +27,8 @@ namespace Echorium.ViewModels.TableItemVM
             if (_wordInfoModel?.WordMatch is null)
                 return null;
 
-            return _wordInfoModel.WordMatch.Length > 20 
-                ? $"{_wordInfoModel.WordMatch.Substring(0, 19)} [TOO LONG TEXT!!!!]" 
+            return _wordInfoModel.WordMatch.Length > 60 
+                ? $"{_wordInfoModel.WordMatch.Substring(0, 59)} [TOO LONG TEXT!!!!]" 
                 : _wordInfoModel.WordMatch;
         }
     }

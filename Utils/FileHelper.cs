@@ -41,33 +41,38 @@ namespace Echorium.Utils
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static async Task<bool> FileIsBinaryAsync(string path)
+        public static Task<bool> FileIsBinary(string path)
         {
-            byte[] buff = new byte[256];
-            int size;
-            try
+            return Task.Run<bool>(() =>
             {
-                FileStream reader = new (path, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 256, useAsync: true);
-                size = await reader.ReadAsync(buff);
-                reader.Close();
-            }
-            catch
-            {
-                return true;
-            }
-
-            if (size > 0)
-            {
-                for (int i = 0; i < size; ++i)
+                try
                 {
-                    if (buff[i] == 0)
-                    {
-                        return true;
-                    }
-                }
-            }
+                    byte[] buff = new byte[256];
+                    int size;
 
-            return false;
+                    FileStream reader = new(path, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 256);
+                    size = reader.Read(buff);
+                    reader.Close();
+                    reader.Dispose();
+
+                    if (size > 0)
+                    {
+                        for (int i = 0; i < size; ++i)
+                        {
+                            if (buff[i] == 0)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            });
         }
 
 
