@@ -37,7 +37,7 @@
   </Design.DataContext>
   
   
-  <Grid Margin="20,20,20,20" ShowGridLines="False">
+  <Grid Margin="20,20,20,20" ShowGridLines="True">
     
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="Auto"/>
