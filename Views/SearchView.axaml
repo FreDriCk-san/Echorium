@@ -37,7 +37,7 @@
   </Design.DataContext>
   
   
-  <Grid Margin="20,20,20,20" ShowGridLines="True">
+  <Grid Margin="20,20,20,20" ShowGridLines="False">
     
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="Auto"/>
@@ -94,10 +94,12 @@
 
         <DataTemplate DataType="vm:TableItemVM.WordInfoVM">
           <StackPanel Orientation="Horizontal">
-            <TextBlock Classes="TreeBlock3" Text="Content:" FontWeight="Bold"/>
+			  
+            <TextBlock Classes="TreeBlock3" Text="Oxxymiron:" FontWeight="Bold"/>
             <TextBlock Classes="TreeBlock3" Text="{Binding WordText}"/>
             <TextBlock Classes="TreeBlock3" Margin="10,0,0,0" Text="Line:" FontWeight="Bold"/>
             <TextBlock Classes="TreeBlock3" Text="{Binding WordLine}"/>
+			  <Separator BorderBrush="Ivory" BorderThickness="3" Width="15" Height="15"/>
           </StackPanel>
         </DataTemplate>
       </TreeView.DataTemplates>
