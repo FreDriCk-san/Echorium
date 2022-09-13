@@ -31,7 +31,7 @@ namespace Echorium.ViewModels
             get => _searchDirectory;
             set => this.RaiseAndSetIfChanged(ref _searchDirectory, value);
         }
-        private string _searchDirectory;
+        private string _searchDirectory = "";
 
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Echorium.ViewModels
             get => _textToSearch;
             set => this.RaiseAndSetIfChanged(ref _textToSearch, value);
         }
-        private string _textToSearch;
+        private string _textToSearch = "";
 
 
         /// <summary>
@@ -158,9 +158,11 @@ namespace Echorium.ViewModels
                         if (cancellationToken.IsCancellationRequested)
                             break;
 
+                        // TODO: FileStream props usage to calc progress
+
                         ++counter;
                         var line = reader.ReadLine();
-                        if (regex.Match(line).Success)
+                        if (!string.IsNullOrEmpty(line) && regex.Match(line).Success)
                             wordInfos.Add(new WordInfoM(line, counter));
                     }
                 }, cancellationToken);
@@ -169,10 +171,10 @@ namespace Echorium.ViewModels
                 if (firstWordInfo is null)
                     continue;
 
-                var foundFolderVM = FolderInfos.FirstOrDefault(f => f.FolderName == file.Directory.FullName);
+                var foundFolderVM = FolderInfos.FirstOrDefault(f => f.FolderName == file?.Directory?.FullName);
                 if (foundFolderVM is null)
                 {
-                    var folderInfoM = new FolderInfoM(file.Directory);
+                    var folderInfoM = new FolderInfoM(file.Directory!);
                     foundFolderVM = new(folderInfoM);
                     FolderInfos.Add(foundFolderVM);
                 }
