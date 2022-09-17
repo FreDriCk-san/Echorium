@@ -7,7 +7,7 @@
              x:Class="Echorium.Views.SearchView">
 
   <UserControl.Styles>
-    
+     
     <Style Selector="Label.LInfo">
       <Setter Property="HorizontalContentAlignment" Value="Left"/>
       <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -37,29 +37,29 @@
   </Design.DataContext>
   
   
-  <Grid Margin="20,20,20,20" ShowGridLines="False">
-    
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto"/>
-      <ColumnDefinition Width="0.5*"/>
-      <ColumnDefinition Width="Auto"/>
-    </Grid.ColumnDefinitions>
+  <Grid Margin="20,20,20,20" Background="WhiteSmoke" ShowGridLines="True">
+	 
+		  <Grid.ColumnDefinitions>
+			  <ColumnDefinition Width="Auto"/>
+			  <ColumnDefinition Width="0,5*"/>
+			  <ColumnDefinition Width="Auto"/>
+		  </Grid.ColumnDefinitions>
 
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition/>
-    </Grid.RowDefinitions>
-    
-    
-    <Label Classes="LInfo" Grid.Row="0" Grid.Column="0" Content="Directory path:"/>
+		  <Grid.RowDefinitions>
+			  <RowDefinition Height="Auto"/>
+			  <RowDefinition Height="Auto"/>
+			  <RowDefinition Height="Auto"/>
+			  <RowDefinition/>
+		  </Grid.RowDefinitions>
+	  
+  
+    <Label Classes="LInfo" Grid.Row="0" Grid.Column="0" Content="Directory path:" Foreground="Black" FontWeight="UltraBlack"/>
     <TextBlock Classes="TbFilePath" Grid.Row="0" Grid.Column="1" Text="{Binding SearchDirectory}"/>
-    <Button Grid.Row="0" Grid.Column="2" Content="+" Command="{Binding CallFolderDialogAsync}"/>
+    <Button Grid.Row="0" Grid.Column="2" Content="+" Background="#FF0D00" Foreground="Black" FontWeight="ExtraBlack" CornerRadius="10" Command="{Binding CallFolderDialogAsync}"/>
     
     
-    <Label Classes="LInfo" Grid.Row="1" Grid.Column="0" Content="Text to search:"/>
-    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextToSearch}"/>
+    <Label Classes="LInfo" Grid.Row="1" Grid.Column="0" Content="Text to search:" FontWeight="UltraBlack"/>
+    <TextBox Grid.Row="1" Grid.Column="1" CornerRadius="20" Text="{Binding TextToSearch}"/>
 
     <Grid Margin="10" Grid.Row="2" Grid.ColumnSpan="2">
       <ProgressBar Height="15" Value="{Binding Path=Progress, Mode=OneWay}" Minimum="0" Maximum="100"/>
@@ -78,6 +78,7 @@
 
 
       <TreeView.DataTemplates>
+		 
         <TreeDataTemplate DataType="vm:TableItemVM.FolderInfoVM" ItemsSource="{Binding Children}">
           <StackPanel Orientation="Horizontal">
             <TextBlock Classes="TreeBlock1" Text="{Binding FolderName}"/>
