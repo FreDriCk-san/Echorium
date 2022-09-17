@@ -29,85 +29,104 @@
     <Style Selector="TextBlock.TreeBlock3">
       <Setter Property="FontSize" Value="15"/>
     </Style>
-
+	  <Style Selector="Button.hueta">
+		  <Setter Property="Template">
+			  <Setter.Value>
+				  <ControlTemplate TargetType="{x:Type Button}">
+					  <Grid>
+						  <TextBlock Text="{TemplateBinding Content}" FontSize="15">							
+							  </TextBlock>
+                </Grid>
+				  </ControlTemplate>
+			  </Setter.Value>
+		  </Setter>
+	  </Style>
   </UserControl.Styles>
 
+	
   <Design.DataContext>
     <vm:SearchViewVM/>
   </Design.DataContext>
-  
-  
-  <Grid Margin="20,20,20,20" Background="WhiteSmoke" ShowGridLines="True">
-	 
-		  <Grid.ColumnDefinitions>
-			  <ColumnDefinition Width="Auto"/>
-			  <ColumnDefinition Width="0,5*"/>
-			  <ColumnDefinition Width="Auto"/>
-		  </Grid.ColumnDefinitions>
 
-		  <Grid.RowDefinitions>
-			  <RowDefinition Height="Auto"/>
-			  <RowDefinition Height="Auto"/>
-			  <RowDefinition Height="Auto"/>
-			  <RowDefinition/>
-		  </Grid.RowDefinitions>
-	  
-  
-    <Label Classes="LInfo" Grid.Row="0" Grid.Column="0" Content="Directory path:" Foreground="Black" FontWeight="UltraBlack"/>
-    <TextBlock Classes="TbFilePath" Grid.Row="0" Grid.Column="1" Text="{Binding SearchDirectory}"/>
-    <Button Grid.Row="0" Grid.Column="2" Content="+" Background="#FF0D00" Foreground="Black" FontWeight="ExtraBlack" CornerRadius="10" Command="{Binding CallFolderDialogAsync}"/>
-    
-    
-    <Label Classes="LInfo" Grid.Row="1" Grid.Column="0" Content="Text to search:" FontWeight="UltraBlack"/>
-    <TextBox Grid.Row="1" Grid.Column="1" CornerRadius="20" Text="{Binding TextToSearch}"/>
+	<Border BorderBrush="Black" BorderThickness="4">
+	<Border BorderBrush="#1144AA" BorderThickness="20" >
+		<Border BorderBrush="Black" BorderThickness="2">
+			<Grid Background="WhiteSmoke"  ShowGridLines="False">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="0.5*"/>
+					<ColumnDefinition Width="Auto"/>
 
-    <Grid Margin="10" Grid.Row="2" Grid.ColumnSpan="2">
-      <ProgressBar Height="15" Value="{Binding Path=Progress, Mode=OneWay}" Minimum="0" Maximum="100"/>
-      <TextBlock Text="{Binding Path=Progress, StringFormat={}{0:0.00}% }" HorizontalAlignment="Center"/>
-    </Grid>
-    
-    <TreeView Grid.Row="3" Grid.ColumnSpan="2" Items="{Binding FolderInfos}">
-      
-      <TreeView.Styles>
-        <Style Selector="TreeViewItem">
-          <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
-          <Setter Property="IsVisible" Value="{Binding IsVisible, Mode=TwoWay}"/>
-          <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
-        </Style>
-      </TreeView.Styles>
+				</Grid.ColumnDefinitions>
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition />
+			
+				</Grid.RowDefinitions>
 
 
-      <TreeView.DataTemplates>
-		 
-        <TreeDataTemplate DataType="vm:TableItemVM.FolderInfoVM" ItemsSource="{Binding Children}">
-          <StackPanel Orientation="Horizontal">
-            <TextBlock Classes="TreeBlock1" Text="{Binding FolderName}"/>
-            <TextBlock Classes="TreeBlock1" FontStyle="Italic" FontWeight="SemiBold" Text="{Binding Children.Count, StringFormat={}  ({0})}"/>
-          </StackPanel>
-        </TreeDataTemplate>
+				<Label Classes="LInfo" Grid.Row="0" Grid.Column="0" Content="Directory path:" FontFamily="Arial" Foreground="Black" FontWeight="UltraBlack"/>
+				<TextBlock Classes="TbFilePath" Grid.Row="0" Grid.Column="1" Text="{Binding SearchDirectory}"/>
+				<Button FontSize="22" Grid.Row="0" Grid.Column="2" Content="+" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black" Background="#FF0D00" Foreground="Black" FontWeight="ExtraBlack" CornerRadius="10" Command="{Binding CallFolderDialogAsync}"/>
 
-        <TreeDataTemplate DataType="vm:TableItemVM.FileInfoVM" ItemsSource="{Binding Children}">
-          <StackPanel Orientation="Horizontal">
-            <TextBlock Classes="TreeBlock2" Text="{Binding FileName}"/>
-            <TextBlock Classes="TreeBlock2" FontStyle="Italic" FontWeight="SemiBold" Text="{Binding Children.Count, StringFormat={}  ({0})}"/>
-          </StackPanel>
-        </TreeDataTemplate>
 
-        <DataTemplate DataType="vm:TableItemVM.WordInfoVM">
-          <StackPanel Orientation="Horizontal">
-			  
-            <TextBlock Classes="TreeBlock3" Text="Oxxymiron:" FontWeight="Bold"/>
-            <TextBlock Classes="TreeBlock3" Text="{Binding WordText}"/>
-            <TextBlock Classes="TreeBlock3" Margin="10,0,0,0" Text="Line:" FontWeight="Bold"/>
-            <TextBlock Classes="TreeBlock3" Text="{Binding WordLine}"/>
-			  <Separator BorderBrush="Ivory" BorderThickness="3" Width="15" Height="15"/>
-          </StackPanel>
-        </DataTemplate>
-      </TreeView.DataTemplates>
-      
-      
-    </TreeView>
-    
-  </Grid>
-  
+				<Label Classes="LInfo" Grid.Row="1" Grid.Column="0" Content="Text to search:" FontFamily="Arial" FontWeight="UltraBlack"/>
+				<TextBox Grid.Row="1" Grid.Column="1" CornerRadius="20" Text="{Binding TextToSearch}"/>
+				<Path Grid.Row="2" Grid.Column="2" Width="19" Height="20" Fill="Green" VerticalAlignment="Center" IsVisible="False" HorizontalAlignment="Center" Data="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
+				<Path Grid.Row="2" Grid.Column="2" Width="22" Height="20" Fill="Green" VerticalAlignment="Center" IsVisible="False" HorizontalAlignment="Center" Data="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z"/>
+				
+				<Grid Margin="10" Grid.Row="2" Grid.ColumnSpan="2">
+					<ProgressBar Height="15" BorderBrush="Black" BorderThickness="1" Value="{Binding Path=Progress, Mode=OneWay}" Minimum="0" Maximum="100"/>
+					<TextBlock Text="{Binding Path=Progress, StringFormat={}{0:0.00}% }" HorizontalAlignment="Center"/>
+				</Grid>
+
+				<TreeView Grid.Row="3" Grid.ColumnSpan="2" Items="{Binding FolderInfos}">
+
+					<TreeView.Styles>
+						<Style Selector="TreeViewItem">
+							<Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+							<Setter Property="IsVisible" Value="{Binding IsVisible, Mode=TwoWay}"/>
+							<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+						</Style>
+					</TreeView.Styles>
+
+
+					<TreeView.DataTemplates>
+
+						<TreeDataTemplate DataType="vm:TableItemVM.FolderInfoVM" ItemsSource="{Binding Children}">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Classes="TreeBlock1" Text="{Binding FolderName}"/>
+								<TextBlock Classes="TreeBlock1" FontStyle="Italic" FontWeight="SemiBold" FontFamily="Arial" Text="{Binding Children.Count, StringFormat={}  ({0})}"/>
+							</StackPanel>
+						</TreeDataTemplate>
+
+						<TreeDataTemplate DataType="vm:TableItemVM.FileInfoVM" ItemsSource="{Binding Children}">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Classes="TreeBlock2" Text="{Binding FileName}"/>
+								<TextBlock Classes="TreeBlock2" FontStyle="Italic" FontWeight="SemiBold" FontFamily="Arial" Text="{Binding Children.Count, StringFormat={}  ({0})}"/>
+							</StackPanel>
+						</TreeDataTemplate>
+
+						<DataTemplate DataType="vm:TableItemVM.WordInfoVM">
+							<StackPanel Orientation="Horizontal">
+
+								<TextBlock Classes="TreeBlock3" Text="Result:" FontWeight="Bold" FontFamily="Arial"/>
+								<TextBlock Classes="TreeBlock3" Text="{Binding WordText}"/>
+								<TextBlock Classes="TreeBlock3" Margin="10,0,0,0" Text="Line:" FontWeight="Bold"/>
+								<TextBlock Classes="TreeBlock3" Text="{Binding WordLine}"/>
+								
+							</StackPanel>
+						</DataTemplate>
+					</TreeView.DataTemplates>
+
+
+				</TreeView>
+
+			</Grid>
+	</Border>
+	</Border>
+		</Border>
 </UserControl>
