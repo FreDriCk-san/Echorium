@@ -68,9 +68,12 @@ namespace Echorium.Utils
 
                     return false;
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
-                    return false;
+                    System.Diagnostics.Debug.WriteLine($"\n{nameof(FileIsBinary)} ({path}):" +
+                        $"\nReason: {exception.Message} " +
+                        $"\nStackTrace: \n{exception.StackTrace}");
+                    return true;
                 }
             });
         }
