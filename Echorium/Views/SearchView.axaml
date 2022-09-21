@@ -59,7 +59,7 @@
     
     
     <Label Classes="LInfo" Grid.Row="1" Grid.Column="0" Content="Text to search:"/>
-    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextToSearch}"/>
+    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TextToSearch}" IsEnabled="{Binding SearchDirectory, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
 
     <Grid Margin="10" Grid.Row="2" Grid.ColumnSpan="2">
       <ProgressBar Height="15" Value="{Binding Path=Progress, Mode=OneWay}" Minimum="0" Maximum="100"/>
@@ -94,10 +94,8 @@
 
         <DataTemplate DataType="vm:TableItemVM.WordInfoVM">
           <StackPanel Orientation="Horizontal">
-            <TextBlock Classes="TreeBlock3" Text="Content:" FontWeight="Bold"/>
-            <TextBlock Classes="TreeBlock3" Text="{Binding WordText}"/>
-            <TextBlock Classes="TreeBlock3" Margin="10,0,0,0" Text="Line:" FontWeight="Bold"/>
-            <TextBlock Classes="TreeBlock3" Text="{Binding WordLine}"/>
+            <TextBlock Classes="TreeBlock3" Text="{Binding WordLine, StringFormat={}#{0}}" FontWeight="Bold"/>
+            <TextBlock Classes="TreeBlock3" Text="{Binding WordText, StringFormat={}     {0}}"/>
           </StackPanel>
         </DataTemplate>
       </TreeView.DataTemplates>
