@@ -76,7 +76,7 @@
 				<Label Classes="LInfo" Grid.Row="1" Grid.Column="0" Content="Text to search:" FontFamily="Arial" FontWeight="UltraBlack"/>
 				<TextBox Grid.Row="1" Grid.Column="1" CornerRadius="20" Text="{Binding TextToSearch}" IsEnabled="{Binding SearchDirectory, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
 				<Path Grid.Row="2" Grid.Column="2" Width="19" Height="20" Fill="Green" VerticalAlignment="Center" IsVisible="False" HorizontalAlignment="Center" Data="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
-				<Path Grid.Row="2" Grid.Column="2" Width="22" Height="20" Fill="Green" VerticalAlignment="Center" IsVisible="False" HorizontalAlignment="Center" Data="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z"/>
+				<Path Grid.Row="2" Grid.Column="2" Width="22" Height="20" Fill="Red" VerticalAlignment="Center" IsVisible="true" HorizontalAlignment="Center" Data="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z"/>
 				
 				<Grid Margin="10" Grid.Row="2" Grid.ColumnSpan="2">
 					<ProgressBar Height="15" BorderBrush="Black" BorderThickness="1" Value="{Binding Path=Progress, Mode=OneWay}" Minimum="0" Maximum="100"/>
@@ -106,13 +106,13 @@
 						<TreeDataTemplate DataType="vm:TableItemVM.FileInfoVM" ItemsSource="{Binding Children}">
 							<StackPanel Orientation="Horizontal">
 								<TextBlock Classes="TreeBlock2" Text="{Binding FileName}"/>
-								<TextBlock Classes="TreeBlock2" FontStyle="Italic" FontWeight="SemiBold" FontFamily="Arial" Text="{Binding Children.Count, StringFormat={}  ({0})}"/>
+								<TextBlock Classes="TreeBlock2" FontStyle="Italic" FontWeight="Black" FontFamily="Calibri" Text="{Binding Children.Count, StringFormat={}  ({0})}"/>
 							</StackPanel>
 						</TreeDataTemplate>
 
 						<DataTemplate DataType="vm:TableItemVM.WordInfoVM">
 							<StackPanel Orientation="Horizontal">
-								<TextBlock Classes="TreeBlock3" Text="{Binding WordLine, StringFormat={}#{0}}" FontWeight="Bold"/>
+								<TextBlock Classes="TreeBlock3" Text="{Binding WordLine, StringFormat={}#{0}}" FontWeight="Black"/>
 								<TextBlock Classes="TreeBlock3" Text="{Binding WordText, StringFormat={}     {0}}"/>
 							</StackPanel>
 						</DataTemplate>
