@@ -56,6 +56,17 @@ namespace Echorium.ViewModels
         private double _progress;
 
 
+        /// <summary>
+        /// Loading status
+        /// </summary>
+        public LoadStatusEnum LoadStatusEnum
+        {
+            get => _loadStatusEnum;
+            set => this.RaiseAndSetIfChanged(ref _loadStatusEnum, value);
+        }
+        private LoadStatusEnum _loadStatusEnum = LoadStatusEnum.None;
+
+
 
         /// <summary>
         /// Collection of matching directories
@@ -119,8 +130,17 @@ namespace Echorium.ViewModels
         {
             bool result = false;
             FolderInfos.Clear();
-            if (string.IsNullOrEmpty(TextToSearch) || string.IsNullOrEmpty(SearchDirectory) || !TextToSearch.IsValidRegex())
+            if (string.IsNullOrEmpty(TextToSearch) || string.IsNullOrEmpty(SearchDirectory))
+            {
+                LoadStatusEnum = LoadStatusEnum.Canceled;
                 return result;
+            }
+
+            if (!TextToSearch.IsValidRegex())
+            {
+                LoadStatusEnum = LoadStatusEnum.InvalidSearchPattern;
+                return result;
+            }
 
             var regex = new Regex(TextToSearch, RegexOptions.IgnoreCase);
 
@@ -189,8 +209,12 @@ namespace Echorium.ViewModels
                     fileInfoVM.TryAddChild(wordInfoVM);
                 }
 
-                foundFolderVM.TryAddChild(fileInfoVM);
+                if (foundFolderVM.TryAddChild(fileInfoVM) && LoadStatusEnum != LoadStatusEnum.Completed)
+                    LoadStatusEnum = LoadStatusEnum.Completed;
             }
+
+            if (FolderInfos.Count == 0)
+                LoadStatusEnum = LoadStatusEnum.NotFound;
 
             return result;
         }
