@@ -21,14 +21,14 @@ namespace Echorium.ViewModels.TableItemVM
         }
 
 
-        private string? GetWordText()
+        private string? GetWordText(int wordLength = 80)
         {
             // TODO: Somehow resolve treeview stuck on big data
-            if (_wordInfoModel?.WordMatch is null)
+            if (_wordInfoModel?.WordMatch is null || wordLength < 0)
                 return null;
 
-            return _wordInfoModel.WordMatch.Length > 60 
-                ? $"{_wordInfoModel.WordMatch.Substring(0, 59)} [TOO LONG TEXT!!!!]" 
+            return _wordInfoModel.WordMatch.Length > wordLength 
+                ? $"{_wordInfoModel.WordMatch[..(wordLength - 1)]} ...." 
                 : _wordInfoModel.WordMatch;
         }
     }
