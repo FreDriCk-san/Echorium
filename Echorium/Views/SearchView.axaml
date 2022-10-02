@@ -9,6 +9,12 @@
 
   <UserControl.Resources>
     <utils:EnumBooleanConverter x:Key="enumBooleanConverter"/>
+
+    <!--Colors to TreeViewItem [if needed]-->
+    <!--<SolidColorBrush x:Key="TreeViewItemBackgroundSelected" Color="Red"/>
+    <SolidColorBrush x:Key="TreeViewItemBackgroundPointerOver" Color="Orange"/>
+    <SolidColorBrush x:Key="TreeViewItemBackgroundSelectedPointerOver" Color="Green"/>
+    <SolidColorBrush x:Key="TreeViewItemBackgroundSelectedPressed" Color="Black"/>-->
   </UserControl.Resources>
   
   <UserControl.Styles>
