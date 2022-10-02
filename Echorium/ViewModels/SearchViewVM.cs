@@ -82,6 +82,7 @@ namespace Echorium.ViewModels
             switch (e.PropertyName)
             {
                 case nameof(TextToSearch):
+                case nameof(SearchDirectory):
                     await TrySearchForMatchesAsync();
                     Progress = 0;
                     break;
