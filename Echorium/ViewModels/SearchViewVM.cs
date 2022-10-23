@@ -84,6 +84,7 @@ namespace Echorium.ViewModels
             this.PropertyChanged += SearchViewVM_PropertyChanged;
 
             //MakeDummyInfo();
+            //
         }
 
 

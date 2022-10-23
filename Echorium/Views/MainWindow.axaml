@@ -14,6 +14,7 @@
     </Design.DataContext>
 
   <Grid>
+	 
     <!--Main UserControl which contains all main functions [see SearchView.axaml]-->
     <views:SearchView DataContext="{Binding SearchViewVM}"/>
 
