@@ -47,7 +47,9 @@ _Stages of the installation process:_
 1. Clone the 'Echorium' repo
    ```sh
    git clone git@github.com:FreDriCk-san/Echorium.git
+
 2. For Windows users, go to the "Windows_Startup" folder and follow the instructions in the "Install_Net_Description.txt" file
+
 3. For Linux users, go to the "Ubuntu_Startup" folder and run the script "Install_Net.sh"
    ```sh
    ./Install_Net.sh
@@ -57,14 +59,14 @@ _Stages of the installation process:_
 
 _Different scripts have been created for different systems to run the program:_
 
-* Linux. Go to the "Ubuntu_Startup" folder and run the script "Run_Echorium.sh" through bash command line
-  ```sh
-  ./Run_Echorium.sh
-  ```
-  
 * Windows. Go to the "Windows_Startup" folder and run the script "Run_Echorium.bat" through cmd
   ```sh
   Run_Echorium.bat
+  ```
+
+* Linux. Go to the "Ubuntu_Startup" folder and run the script "Run_Echorium.sh" through bash command line
+  ```sh
+  ./Run_Echorium.sh
   ```
    
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
