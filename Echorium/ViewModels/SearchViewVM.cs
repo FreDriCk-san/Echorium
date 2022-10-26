@@ -130,51 +130,69 @@ namespace Echorium.ViewModels
         private async Task<bool> SearchForMatchesAsync(CancellationToken cancellationToken)
         {
             bool result = false;
+            // Очистка коллекции результата
             FolderInfos.Clear();
+
+            // Если регулярное выражение отсутсвует или отсутствует директория для поиска, то ничего не делать
             if (string.IsNullOrEmpty(TextToSearch) || string.IsNullOrEmpty(SearchDirectory))
             {
                 LoadStatusEnum = LoadStatusEnum.Canceled;
                 return result;
             }
 
+            // Если регулярное выражение не является валидным, то ничего не делать
             if (!TextToSearch.IsValidRegex())
             {
                 LoadStatusEnum = LoadStatusEnum.InvalidSearchPattern;
                 return result;
             }
 
+            // Формирование экземпляра класса регулярного выражения
+            // [на вход поступает строка регулярного выражения и ключ на остутствие регистрочувствительности]
             var regex = new Regex(TextToSearch, RegexOptions.IgnoreCase);
 
+            // Формирование экземпляра класса "директории"
             var directoryInfo = new DirectoryInfo(SearchDirectory);
+            // Если директории не существует, то ничего не делать
             if (!directoryInfo.Exists)
                 return result;
 
+            // Рекурсивный поиск всех файлов указанной директории
             var allFiles = await Task.Run(() =>
             {
                 return FileHelper.GetAllFilesFromDirectory(directoryInfo);
             });
 
+            // Если коллекция файлов пуста - то ничего не делать
             if (allFiles.IsNullOrEmpty())
                 return result;
 
+            // Итерация по всем файлам указанной директории
             for (int i = 0; i < allFiles.Count; i++)
             {
+                // Экземпляр класса 'File'
                 FileInfo? file = allFiles[i];
+                // Обновление прогресса загрузки
                 Progress = (i / (double)allFiles.Count) * 100;
 
+                // Проверка, является ли текущий файл бинарным.
+                // Если бинарный, то пропускаем итерацию
                 if (await FileHelper.FileIsBinary(file.FullName))
                     continue;
 
-                // TODO: Not sure about manual encoding
+                // Определение кодировки файла
                 var encoding = await FileHelper.GetEncodingAsync(file.FullName);
 
+                // Формирование потока считывания из файла
                 using var fileStream = new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: 4096, useAsync: true);
                 var counter = 0;
                 List<WordInfoM> wordInfos = new();
 
                 await Task.Run(() =>
                 {
+                    // Формирование экземпляра класса для считывания строк из файла
                     using var reader = new StreamReader(fileStream, encoding);
+                    // Пока не конец файла - идёт считывание строк
                     while (!reader.EndOfStream)
                     {
                         if (cancellationToken.IsCancellationRequested)
@@ -183,7 +201,9 @@ namespace Echorium.ViewModels
                         // TODO: FileStream props usage to calc progress
 
                         ++counter;
+                        // Считывание строки
                         var line = reader.ReadLine();
+                        // Если строка из файла не пустая и эта строка подходит под регулярное выражение, то оно добавляется в список результатов
                         if (!string.IsNullOrEmpty(line) && regex.Match(line).Success)
                             wordInfos.Add(new WordInfoM(line, counter));
                     }
