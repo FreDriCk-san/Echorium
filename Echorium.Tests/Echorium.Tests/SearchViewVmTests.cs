@@ -65,11 +65,11 @@ namespace Echorium.Tests
             string validText = "01020102101201201201";
 
             var regex = new Regex(regularExpression, RegexOptions.IgnoreCase);
-            bool isNotMatch = regex.IsMatch(nonValidText);
+            bool isNotMatch = !regex.IsMatch(nonValidText);
             bool isMatch = regex.IsMatch(validText);
 
-            Assert.That(isNotMatch, false);
-            Assert.That(isMatch, true);
+            Assert.True(isNotMatch);
+            Assert.True(isMatch);
         }
     }
 }
