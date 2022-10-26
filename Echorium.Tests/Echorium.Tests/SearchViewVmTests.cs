@@ -1,6 +1,8 @@
 using Echorium.Models.TableItemM;
 using Echorium.ViewModels;
 using Echorium.ViewModels.TableItemVM;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Echorium.Tests
 {
