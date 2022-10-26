@@ -53,5 +53,21 @@ namespace Echorium.Tests
             Console.WriteLine($"FolderInfos count: {_searchViewVM.FolderInfos.Count}");
             Assert.That(_searchViewVM.FolderInfos, Has.Count.EqualTo(4));
         }
+
+
+        [Test]
+        public void RegularExpressionWorksCorrect()
+        {
+            string regularExpression = "[0-5]";
+            string nonValidText = "6866866876768687678687";
+            string validText = "01020102101201201201";
+
+            var regex = new Regex(regularExpression, RegexOptions.IgnoreCase);
+            bool isNotMatch = regex.IsMatch(nonValidText);
+            bool isMatch = regex.IsMatch(validText);
+
+            Assert.That(isNotMatch, false);
+            Assert.That(isMatch, true);
+        }
     }
 }
